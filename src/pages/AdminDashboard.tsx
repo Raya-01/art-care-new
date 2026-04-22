@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase/config';
 import {
-  collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy, limit,
-  Timestamp, where, getDoc
+  collection, getDocs, doc, updateDoc, deleteDoc,Timestamp
 } from 'firebase/firestore';
 import {
-  Users, Shield, UserX, CheckCircle, XCircle, Search, Filter,
-  Mail, Calendar, Activity, Star, Edit2, Save, X, Trash2,
-  Lock, Unlock, AlertCircle, UserCheck, UserMinus, ChevronDown, ChevronUp
+  Users, Shield, CheckCircle, Search, Filter,
+  Activity, Edit2, Save, X, Trash2,
+  Lock, Unlock, AlertCircle, UserCheck, UserMinus
 } from 'lucide-react';
 
 const C = {
@@ -71,7 +70,6 @@ const AdminDashboard: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'suspended'>('all');
   const [roleFilter, setRoleFilter] = useState<'all' | 'admin' | 'user'>('all');
   const [editingUser, setEditingUser] = useState<string | null>(null);
-  const [editName, setEditName] = useState('');
   const [editRole, setEditRole] = useState<'admin' | 'user'>('user');
   const [showConfirm, setShowConfirm] = useState<string | null>(null);
   const [stats, setStats] = useState({
@@ -204,11 +202,6 @@ const AdminDashboard: React.FC = () => {
     return date.toLocaleDateString('bg-BG');
   };
 
-  const formatDateTime = (timestamp: Timestamp | undefined) => {
-    if (!timestamp) return '—';
-    const date = timestamp.toDate();
-    return date.toLocaleString('bg-BG');
-  };
 
   if (authLoading || loading) {
     return (

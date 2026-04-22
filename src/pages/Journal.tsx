@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   BookOpen, Plus, Trash2, Edit, Save, X,
-  Calendar, Clock, Search, Heart, Sparkles,
+  Calendar, Clock, Search, Heart
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import QuoteDisplay from '../utils/QuoteDisplay';
@@ -638,7 +638,7 @@ const Journal: React.FC = () => {
                             <span style={{ display:'flex', alignItems:'center', gap:3, fontSize:'0.68rem', color:C.mist }}>
                               <Calendar size={9}/>{e.date}
                             </span>
-                            <span style={{ fontSize:'0.68rem', fontStyle:'italic', color:C.stone, padding:'1px 8px', borderRadius:999, background:moodCs.bg, border:`1px solid ${moodCs.border}`, color:moodCs.text }}>
+                            <span style={{ fontSize:'0.68rem', fontStyle:'italic', color:C.stone, padding:'1px 8px', borderRadius:999, background:moodCs.bg, border:`1px solid ${moodCs.border}`}}>
                               {e.mood.split(' ').slice(1).join(' ')}
                             </span>
                           </div>

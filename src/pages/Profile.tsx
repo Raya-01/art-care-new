@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import {
-  User, Mail, Star, Target, BookOpen, Image,
+   Mail, Star, Target, BookOpen, Image,
   Edit2, Save, X, Camera, Award, Heart,
-  Calendar, Settings, LogOut, TrendingUp, BarChart3, Check,
+  Calendar, Settings, LogOut, Check,
 } from 'lucide-react';
 import PageTutorial, { PROFILE_TUTORIAL_STEPS } from '../components/PageTutorial';
 
