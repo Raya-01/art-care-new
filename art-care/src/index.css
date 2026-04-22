@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap');
+@import "tailwindcss";
+
+/* ─── Design tokens (Tailwind v4 CSS-first config) ───────────────────────── */
+@theme {
+  /* Colors */
+  --color-salmon:      #E88067;
+  --color-peach:       #FBBD96;
+  --color-cream:       #F9DDB8;
+  --color-sage:        #A3B995;
+  --color-mist:        #A8BBB9;
+  --color-forest:      #2C3E35;
+  --color-stone:       #5C6E6A;
+  --color-warm-bg:     #FAF5EF;
+  --color-warm-card:   #FFF8F3;
+  --color-warm-hover:  #FFF0EB;
+  --color-warm-border: #F9DDB8;
+  --color-mist-border: #D4E3DE;
+
+  /* Typography */
+  --font-sans:    'Nunito', sans-serif;
+  --font-display: 'Lora', serif;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-color: #FAF5EF;
+  color: #2C3E35;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 10px; }
+::-webkit-scrollbar-track { background: #F4EDE4; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #E88067, #FBBD96);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #d4705a, #f0a87a);
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+::selection {
+  background-color: rgba(232, 128, 103, 0.25);
+  color: #2C3E35;
+}
+
+/* ─── Keyframes ──────────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Focus ──────────────────────────────────────────────────────────────── */
+*:focus          { outline: 2px solid #E88067; outline-offset: 2px; }
+*:focus:not(:focus-visible) { outline: none; }
