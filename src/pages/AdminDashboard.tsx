@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase/config';
 import {
-  collection, getDocs, doc, updateDoc, deleteDoc,Timestamp
+  collection, getDocs, doc, updateDoc, deleteDoc, Timestamp
 } from 'firebase/firestore';
 import {
   Users, Shield, CheckCircle, Search, Filter,
@@ -202,7 +202,6 @@ const AdminDashboard: React.FC = () => {
     return date.toLocaleDateString('bg-BG');
   };
 
-
   if (authLoading || loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: `linear-gradient(160deg,${C.bgWarm},#EEF4F2)` }}>
@@ -260,7 +259,6 @@ const AdminDashboard: React.FC = () => {
       <div style={{ maxWidth: 1400, margin: '0 auto', padding: '32px 24px' }}>
         <div className="admin-rainbow" style={{ marginBottom: 24 }} />
 
-        {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', gap: 16 }}>
           <div>
             <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: '2rem', fontWeight: 700, color: C.forest, margin: 0, display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -274,7 +272,6 @@ const AdminDashboard: React.FC = () => {
           </button>
         </div>
 
-        {/* Stats Cards */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 16, marginBottom: 24 }}>
           {[
             { label: 'Общо потребители', value: stats.totalUsers, icon: <Users size={20} />, color: C.sage },
@@ -296,7 +293,6 @@ const AdminDashboard: React.FC = () => {
           ))}
         </div>
 
-        {/* Filters */}
         <div className="admin-card" style={{ padding: '20px', marginBottom: 24 }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center' }}>
             <div style={{ flex: 1, minWidth: 200, display: 'flex', alignItems: 'center', gap: 10, background: C.bgWarm, borderRadius: 12, padding: '8px 16px', border: `1.5px solid ${C.mistLt}` }}>
@@ -333,7 +329,6 @@ const AdminDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Users Table */}
         <div className="admin-card" style={{ overflow: 'hidden', padding: 0 }}>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -481,7 +476,6 @@ const AdminDashboard: React.FC = () => {
           )}
         </div>
 
-        {/* Floral footer */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 32, justifyContent: 'center', opacity: 0.3 }}>
           <div style={{ flex: 1, height: 1, background: `linear-gradient(90deg,transparent,${C.sage})` }} />
           <TinyFlower /><TinyFlower style={{ opacity: 0.5 }} /><TinyFlower />
@@ -489,7 +483,6 @@ const AdminDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Confirm Delete Modal */}
       {showConfirm && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(44,62,53,0.6)', backdropFilter: 'blur(4px)' }}>
           <div style={{ background: 'white', borderRadius: 24, padding: 28, maxWidth: 400, textAlign: 'center', border: `2px solid ${C.border}` }}>

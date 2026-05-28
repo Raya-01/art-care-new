@@ -13,7 +13,6 @@ interface JournalEntry {
   tags: string[]; favorite: boolean; prompt?: string;
 }
 
-/* ── Palette — identical to Therapy ──────────────────────────────── */
 const C = {
   salmon:  '#E88067',
   peach:   '#FBBD96',
@@ -40,7 +39,6 @@ const PROMPTS = [
   'С какво се справих по-добре от вчера?','Какво желая за утре?',
 ];
 
-/* ── Same SVGs as Therapy / Header ───────────────────────────────── */
 const Sprig = ({ style }: { style?: React.CSSProperties }) => (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={style}>
     <path d="M9 16 C9 16 9 8 9 3" stroke={C.sage} strokeWidth="1.2" strokeLinecap="round"/>
@@ -60,7 +58,6 @@ const TinyFlower = ({ style }: { style?: React.CSSProperties }) => (
   </svg>
 );
 
-/* ── mood accent colours ─────────────────────────────────────────── */
 const moodColour: Record<string, { bg: string; text: string; border: string }> = {
   '😊': { bg: '#FFF8EE', text: '#B07030', border: C.cream   },
   '😌': { bg: '#EEF4F2', text: '#3A6660', border: C.mistLt  },
@@ -73,7 +70,6 @@ const moodColour: Record<string, { bg: string; text: string; border: string }> =
 };
 const mc = (mood: string) => moodColour[mood.split(' ')[0]] ?? { bg: '#EEF4EE', text: C.stone, border: C.mistLt };
 
-/* ═══════════════════════════════════════════════════════════════════ */
 const Journal: React.FC = () => {
   const { currentUser, loading, isAuthenticated } = useAuth();
 
@@ -91,7 +87,6 @@ const Journal: React.FC = () => {
   const [quoteVis,   setQuoteVis]   = useState(false);
   const quoteTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  /* ── load ────────────────────────────────────────────────────── */
   useEffect(() => {
     if (!currentUser) { setEntries([]); setFiltered([]); return; }
     try {
@@ -120,7 +115,6 @@ const Journal: React.FC = () => {
     localStorage.setItem(`journal_${currentUser.uid}`, JSON.stringify(list));
   }, [currentUser]);
 
-  /* ── toast ───────────────────────────────────────────────────── */
   const triggerQuote = useCallback(() => {
     setShowQuote(true); setQuoteVis(true);
     if (quoteTimer.current) clearTimeout(quoteTimer.current);
@@ -130,7 +124,6 @@ const Journal: React.FC = () => {
     }, 6000);
   }, []);
 
-  /* ── CRUD ────────────────────────────────────────────────────── */
   const handleSave = () => {
     if (!currentUser || !current.content?.trim()) return;
     const now = new Date();
@@ -187,7 +180,6 @@ const Journal: React.FC = () => {
     setShowEditor(true);
   };
 
-  /* ── guards ──────────────────────────────────────────────────── */
   if (loading) return (
     <div style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', background:`linear-gradient(160deg,${C.bgWarm},#EEF4F2)`, fontFamily:"'Nunito',sans-serif" }}>
       <div style={{ background:'white', borderRadius:24, padding:48, textAlign:'center', border:`2px solid ${C.border}`, boxShadow:'0 24px 64px rgba(44,62,53,0.11)' }}>
@@ -213,7 +205,6 @@ const Journal: React.FC = () => {
     </div>
   );
 
-  /* ═══════════════════════════════ RENDER ═══════════════════════ */
   return (
     <div style={{ minHeight:'100vh', background:`linear-gradient(160deg,${C.bgWarm} 0%,#EEF4F2 100%)`, fontFamily:"'Nunito',sans-serif", paddingBottom:72 }}>
 
@@ -239,7 +230,6 @@ const Journal: React.FC = () => {
           animation:borderFlow 6s ease infinite;
         }
 
-        /* ── cards — same as .th-card in Therapy ── */
         .jnl-card {
           animation: fadeUp .5s cubic-bezier(.22,1,.36,1) both;
           border-radius: 24px;
@@ -250,7 +240,6 @@ const Journal: React.FC = () => {
         }
         .jnl-card:hover { box-shadow: 0 10px 28px rgba(44,62,53,0.10); }
 
-        /* ── entry row card ── */
         .jnl-entry {
           border-radius: 18px;
           border: 1.5px solid ${C.border};
@@ -270,7 +259,6 @@ const Journal: React.FC = () => {
           background: white;
         }
 
-        /* ── paper texture for open entries ── */
         .jnl-paper {
           background-image: repeating-linear-gradient(
             transparent, transparent 27px,
@@ -279,7 +267,6 @@ const Journal: React.FC = () => {
           background-color: #FFFDF8;
         }
 
-        /* ── buttons — same as .th-btn ── */
         .jnl-btn {
           cursor: pointer; border: none;
           transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
@@ -293,34 +280,28 @@ const Journal: React.FC = () => {
         }
         .jnl-ghost:hover { transform: translateY(-2px); background: #FFF0EB !important; border-color: #FCCAAB !important; color: ${C.salmon} !important; }
 
-        /* ── input focus ── */
         .jnl-input:focus {
           outline: none;
           border-color: ${C.sage} !important;
           box-shadow: 0 0 0 3px rgba(163,185,149,.18);
         }
 
-        /* ── action buttons visible always on entry ── */
         .jnl-act {
           transition: transform .18s, background .18s, box-shadow .18s;
           cursor: pointer;
         }
         .jnl-act:hover { transform: scale(1.1); }
 
-        /* ── sways / floats ── */
         .jnl-sway-l { animation: softSway 4.5s ease-in-out infinite;     transform-origin: bottom center; }
         .jnl-sway-r { animation: softSway 4.5s ease-in-out infinite .6s; transform-origin: bottom center; }
         .jnl-float  { animation: gentleFloat 4s ease-in-out infinite; }
         .jnl-sparkle{ animation: softPulse 2.5s ease-in-out infinite; }
 
-        /* ── toast ── */
         .jnl-toast-in  { animation: toastIn  .38s cubic-bezier(.22,1,.36,1) both; }
         .jnl-toast-out { animation: toastOut .34s ease both; }
 
-        /* ── editor modal ── */
         .jnl-editor { animation: editorIn .34s cubic-bezier(.22,1,.36,1) both; }
 
-        /* ── mood chips ── */
         .jnl-mood {
           cursor: pointer; border: 1.5px solid ${C.mistLt};
           background: ${C.bgWarm}; color: ${C.stone};
@@ -329,21 +310,18 @@ const Journal: React.FC = () => {
         .jnl-mood:hover   { transform: translateY(-2px); border-color: #FCCAAB; background: #FFF0EB; }
         .jnl-mood.active  { background: linear-gradient(135deg,${C.salmon},${C.peach}); color: white; border-color: transparent; box-shadow: 0 4px 12px rgba(232,128,103,0.25); }
 
-        /* ── spine texture for editor ── */
         .jnl-spine {
           background:
             repeating-linear-gradient(45deg,rgba(255,255,255,.022) 0,rgba(255,255,255,.022) 1px,transparent 1px,transparent 7px),
             linear-gradient(180deg,#2C4A3E,#1e3830 50%,#2C4A3E);
         }
 
-        /* ── entry grid ── */
         .jnl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         @media(max-width: 680px) { .jnl-grid { grid-template-columns: 1fr !important; } }
       `}</style>
 
       <PageTutorial storageKey="artcare_tut_journal" steps={JOURNAL_TUTORIAL_STEPS}/>
 
-      {/* ── Quote toast ────────────────────────────────────────── */}
       {showQuote && (
         <div
           className={quoteVis ? 'jnl-toast-in' : 'jnl-toast-out'}
@@ -373,7 +351,6 @@ const Journal: React.FC = () => {
         </div>
       )}
 
-      {/* ── Editor modal ─────────────────────────────────────────── */}
       {showEditor && (
         <div
           style={{ position:'fixed', inset:0, zIndex:50, display:'flex', alignItems:'center', justifyContent:'center', padding:16, background:'rgba(44,62,53,0.55)', backdropFilter:'blur(8px)' }}
@@ -384,7 +361,6 @@ const Journal: React.FC = () => {
             style={{ background:'white', width:'100%', maxWidth:580, maxHeight:'90vh', overflowY:'auto', borderRadius:20, boxShadow:'0 32px 80px rgba(44,62,53,0.25)', display:'flex' }}
             onClick={e => e.stopPropagation()}
           >
-            {/* spine strip */}
             <div className="jnl-spine" style={{ width:32, flexShrink:0, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-between', padding:'16px 0', borderRadius:'20px 0 0 20px' }}>
               <div style={{ display:'flex', flexDirection:'column', gap:7 }}>
                 {[...Array(6)].map((_,i) => <div key={i} style={{ width:8, height:8, borderRadius:'50%', background:'rgba(249,221,184,0.18)', border:'1px solid rgba(249,221,184,0.12)' }}/>)}
@@ -395,12 +371,10 @@ const Journal: React.FC = () => {
               </div>
             </div>
 
-            {/* editor body */}
             <div style={{ flex:1, minWidth:0 }}>
               <div className="jnl-rainbow" style={{ borderRadius:0 }}/>
               <div style={{ padding:'22px 26px 26px' }}>
 
-                {/* header */}
                 <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:18 }}>
                   <div>
                     <p style={{ fontSize:'0.62rem', fontWeight:800, textTransform:'uppercase', letterSpacing:'0.18em', color:C.mist, marginBottom:2 }}>Личен дневник</p>
@@ -416,7 +390,6 @@ const Journal: React.FC = () => {
                   ><X size={14}/></button>
                 </div>
 
-                {/* prompt card */}
                 <div style={{ marginBottom:16, padding:'12px 14px', borderRadius:16, border:`1.5px solid #FCCAAB`, background:`linear-gradient(135deg,${C.cream},${C.mistLt})` }} data-tutorial="journal-prompts">
                   <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:6 }}>
                     <div style={{ display:'flex', alignItems:'center', gap:6 }}>
@@ -434,7 +407,6 @@ const Journal: React.FC = () => {
                   </p>
                 </div>
 
-                {/* mood */}
                 <div style={{ marginBottom:16 }}>
                   <p style={{ fontSize:'0.62rem', fontWeight:800, textTransform:'uppercase', letterSpacing:'0.14em', color:C.stone, marginBottom:8 }}>Настроение</p>
                   <div style={{ display:'flex', flexWrap:'wrap', gap:7 }}>
@@ -448,14 +420,12 @@ const Journal: React.FC = () => {
                   </div>
                 </div>
 
-                {/* title */}
                 <input type="text" placeholder="Заглавие (по избор)"
                   value={current.title||''} onChange={e => setCurrent(p => ({...p, title:e.target.value}))}
                   className="jnl-input"
                   style={{ width:'100%', padding:'10px 16px', borderRadius:12, marginBottom:10, fontSize:'1rem', fontWeight:700, border:`1.5px solid ${C.mistLt}`, color:C.forest, background:C.bgWarm, fontFamily:"'Cormorant Garamond',serif", boxSizing:'border-box' }}
                 />
 
-                {/* content */}
                 <textarea placeholder="Напишете вашите мисли тук..."
                   value={current.content||''} onChange={e => setCurrent(p => ({...p, content:e.target.value}))}
                   rows={8}
@@ -463,7 +433,6 @@ const Journal: React.FC = () => {
                   style={{ width:'100%', padding:'12px 16px', borderRadius:12, marginBottom:10, fontSize:'0.85rem', border:`1.5px solid ${C.mistLt}`, color:C.forest, resize:'none', lineHeight:'28px', boxSizing:'border-box', fontFamily:"'Nunito',sans-serif" }}
                 />
 
-                {/* tags */}
                 <div style={{ marginBottom:16 }}>
                   <div style={{ display:'flex', gap:8, marginBottom:8 }}>
                     <input type="text" placeholder="Добавете етикет..."
@@ -491,7 +460,6 @@ const Journal: React.FC = () => {
                   </div>
                 </div>
 
-                {/* footer */}
                 <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', paddingTop:14, borderTop:`1.5px solid ${C.border}` }}>
                   <label style={{ display:'flex', alignItems:'center', gap:7, cursor:'pointer', fontSize:'0.78rem', fontWeight:700, color:C.stone }}>
                     <input type="checkbox" checked={current.favorite||false}
@@ -516,13 +484,10 @@ const Journal: React.FC = () => {
         </div>
       )}
 
-      {/* ═══════════════════════ MAIN ════════════════════════════ */}
       <div style={{ maxWidth:920, margin:'0 auto', padding:'32px 20px' }}>
 
-        {/* rainbow bar */}
         <div className="jnl-rainbow" style={{ marginBottom:28 }}/>
 
-        {/* ══ HEADER CARD ════════════════════════════════════════ */}
         <div className="jnl-card" style={{ marginBottom:16, overflow:'hidden', animationDelay:'0s' }}>
           <div className="jnl-rainbow" style={{ borderRadius:0 }}/>
           <div style={{ padding:'22px 28px' }}>
@@ -548,7 +513,6 @@ const Journal: React.FC = () => {
           </div>
         </div>
 
-        {/* ══ SEARCH & FILTER ════════════════════════════════════ */}
         <div className="jnl-card" style={{ padding:'16px 22px', marginBottom:16, animationDelay:'.05s' }}>
           <div style={{ display:'flex', flexWrap:'wrap', gap:10 }}>
             <div style={{ flex:'1 1 200px', position:'relative' }}>
@@ -573,7 +537,6 @@ const Journal: React.FC = () => {
           </div>
         </div>
 
-        {/* ══ ENTRIES ════════════════════════════════════════════ */}
         {filtered.length === 0 ? (
           <div className="jnl-card" style={{ padding:'56px 24px', textAlign:'center', animationDelay:'.1s' }}>
             <div style={{ width:60, height:60, borderRadius:16, margin:'0 auto 16px', display:'flex', alignItems:'center', justifyContent:'center', background:`linear-gradient(135deg,${C.salmon},${C.peach})`, opacity:.2 }}>
@@ -593,7 +556,6 @@ const Journal: React.FC = () => {
         ) : (
           <div className="jnl-card" style={{ padding:'22px 28px', animationDelay:'.1s' }}>
 
-            {/* section header */}
             <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:6 }}>
               <div style={{ display:'flex', alignItems:'center', gap:8 }}>
                 <BookOpen size={15} style={{ color:C.salmon, flexShrink:0 }}/>
@@ -607,7 +569,6 @@ const Journal: React.FC = () => {
               Натиснете запис за да разгърнете ✨
             </p>
 
-            {/* entries grid */}
             <div className="jnl-grid">
               {filtered.map((e, idx) => {
                 const isOpen = expanded === e.id;
@@ -619,11 +580,9 @@ const Journal: React.FC = () => {
                     style={{ animationDelay:`${idx * 0.05}s` }}
                     onClick={() => setExpanded(isOpen ? null : e.id)}
                   >
-                    {/* entry top stripe */}
                     <div className="jnl-rainbow" style={{ borderRadius:0, height:3 }}/>
 
                     <div style={{ padding:'14px 16px' }}>
-                      {/* mood + title + fav */}
                       <div style={{ display:'flex', alignItems:'flex-start', gap:10, marginBottom:8 }}>
                         <span style={{ fontSize:'1.4rem', lineHeight:1, flexShrink:0, marginTop:2 }}>{mood}</span>
                         <div style={{ flex:1, minWidth:0 }}>
@@ -633,7 +592,6 @@ const Journal: React.FC = () => {
                             </h3>
                             {e.favorite && <Heart size={12} fill={C.salmon} color={C.salmon} style={{ flexShrink:0 }}/>}
                           </div>
-                          {/* meta row */}
                           <div style={{ display:'flex', alignItems:'center', gap:8, marginTop:3, flexWrap:'wrap' }}>
                             <span style={{ display:'flex', alignItems:'center', gap:3, fontSize:'0.68rem', color:C.mist }}>
                               <Calendar size={9}/>{e.date}
@@ -645,7 +603,6 @@ const Journal: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* preview / full content */}
                       {isOpen ? (
                         <div className="jnl-paper" style={{ borderRadius:10, padding:'12px 14px', marginBottom:10 }}>
                           {e.prompt && (
@@ -670,7 +627,6 @@ const Journal: React.FC = () => {
                         </p>
                       )}
 
-                      {/* actions row */}
                       <div
                         style={{ display:'flex', alignItems:'center', justifyContent:'space-between', paddingTop:8, borderTop:`1px solid ${C.border}`, marginTop: isOpen ? 0 : -2 }}
                         onClick={ev => ev.stopPropagation()}
@@ -679,19 +635,16 @@ const Journal: React.FC = () => {
                           <Clock size={9}/>{e.time}
                         </span>
                         <div style={{ display:'flex', gap:6 }}>
-                          {/* fav */}
                           <button onClick={() => handleFav(e.id)}
                             className="jnl-act"
                             style={{ width:28, height:28, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', background: e.favorite ? `linear-gradient(135deg,${C.salmon},${C.peach})` : 'white', border: e.favorite ? 'none' : `1.5px solid #FCCAAB`, boxShadow: e.favorite ? `0 2px 8px rgba(232,128,103,0.28)` : 'none' }}
                           ><Heart size={11} color={e.favorite?'white':C.salmon} fill={e.favorite?'white':'none'}/></button>
-                          {/* edit */}
                           <button onClick={() => handleEdit(e)}
                             className="jnl-act"
                             style={{ width:28, height:28, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', background:'white', border:`1.5px solid ${C.mistLt}` }}
                             onMouseEnter={ev => { ev.currentTarget.style.background='#EEF4EE'; ev.currentTarget.style.borderColor=C.sage; }}
                             onMouseLeave={ev => { ev.currentTarget.style.background='white'; ev.currentTarget.style.borderColor=C.mistLt; }}
                           ><Edit size={11} color={C.stone}/></button>
-                          {/* delete */}
                           <button onClick={() => handleDelete(e.id)}
                             className="jnl-act"
                             style={{ width:28, height:28, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', background:'white', border:`1.5px solid #FCCAAB` }}
@@ -706,7 +659,6 @@ const Journal: React.FC = () => {
               })}
             </div>
 
-            {/* floral footer */}
             <div style={{ display:'flex', alignItems:'center', gap:8, marginTop:22, opacity:.28 }}>
               <div style={{ flex:1, height:1, background:`linear-gradient(90deg,transparent,${C.sage})` }}/>
               <span className="jnl-sway-l"><Sprig/></span>
